@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -58,7 +57,6 @@ func DataInit() {
 	user.Name = "user1"
 	user.Roles = append(user.Roles, role)
 
-	fmt.Println(role.Id)
 	urlMsg := strings.Split(permission.Path, "|")
 	if _, err := rbac.Enforcer.RemoveFilteredPolicy(0, rbac.RString(role.Id)); err != nil {
 		panic(err)
@@ -100,7 +98,6 @@ func CasbinMiddleware(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	fmt.Println(Body)
 	if Body.UserId == 0 {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "userId is empty"})
 		c.Abort()
@@ -140,11 +137,9 @@ func main() {
 	CasbinInit()
 	if len(os.Args) > 1 {
 		if os.Args[1] == "initApi" {
-			fmt.Println(os.Args[2])
 			rbac.RbacPermission.FetchUrlBySwagger(DB, os.Args[2])
 		}
 		if os.Args[1] == "initData" {
-			fmt.Println(os.Args[2])
 			DataInit()
 		}
 	} else {

@@ -56,7 +56,6 @@ func (i *rbacPermission) FetchUrlBySwagger(DB *gorm.DB, url string) (*[]rbacPerm
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(swaggerJson)
 	var swaggerPaths = &[]rbacPermissionPath{}
 pathFor:
 	for k, v := range swaggerJson.Paths {
@@ -87,7 +86,6 @@ pathFor:
 		swaggerPath.Path = path
 		*swaggerPaths = append(*swaggerPaths, swaggerPath)
 	}
-	fmt.Println(swaggerPaths)
 	i.ReloadRbacPermission2Database(DB, swaggerPaths)
 	return swaggerPaths, nil
 }
@@ -252,8 +250,6 @@ func getJSONByHttp(url string, result interface{}) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected http GET status: %s", resp.Status)
 	}
-	fmt.Println(result)
-	fmt.Println(resp.Body)
 	// We could check the resulting content type
 	// here if desired.
 	err = json.NewDecoder(resp.Body).Decode(result)

@@ -2,7 +2,6 @@ package rbac
 
 import (
 	"errors"
-	"fmt"
 
 	"net/http"
 )
@@ -20,10 +19,8 @@ func CasbinMiddlewareRole(r http.Request, roleIds []uint) error {
 	isOk := false
 	for _, v := range roleIds {
 		// 根据角色获取权限
-		fmt.Println(RString(v), r.URL.Path, r.Method)
 		ok, err := Enforcer.Enforce(RString(v), r.URL.Path, r.Method)
 		if err != nil {
-			fmt.Printf("%v", err)
 			panic("1##权限验证出错")
 		}
 		if ok {
