@@ -1,6 +1,6 @@
 # 基于gin、casbin、swag自动生成鉴权路由的rbac demo
 ## 操作步骤
-  git clone https://github.com/GJHaoo/auto-rbac-by-swagger.git 
+  git clone https://github.com/GJHaoo/auto-rbac-by-swagger.git  
   go mod tidy  
   swag init  
 
