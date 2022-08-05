@@ -3,9 +3,9 @@
   git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git 
   go mod tidy 
 
-  如果修改了swag需要再次执行以下命令
-  swag init 
-  此条命令自动生成rbac_permission_auto表（所有权限路由表） 
+  如果修改了swag需要再次执行以下命令 
+  swag init  
+  此条命令自动生成rbac_permission_auto表（所有权限路由表）  
   go run main.go initApi docs/swagger.json 
 
   go run main.go initData  
