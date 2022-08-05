@@ -1,11 +1,15 @@
 # 基于gin、casbin、swag自动生成鉴权路由的rbac demo
 ## 操作步骤
-  git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git
-  go mod tidy
-  swag init # 如果修改了swag需要再次执行此命令
-  go run main.go initApi  docs/swagger.json # 此条命令自动生成rbac_permission_auto表（所有权限路由表）
-  go run main.go initData
-  go run main.go 
+  git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git \
+  go mod tidy \
+
+  # 如果修改了swag需要再次执行以下命令
+  swag init  \ 
+
+  # 此条命令自动生成rbac_permission_auto表（所有权限路由表）
+  go run main.go initApi  docs/swagger.json  \ 
+  go run main.go initData \ 
+  go run main.go  \ 
 
 ## 权限验证
 1.验证用户id为1的接口权限
@@ -41,6 +45,7 @@
 ## 实现方法和使用说明如下：
   1.借助swagger生成的swagger.json获取需要做权限判断的路由，使用cmd的方法执行FetchUrlBySwagger()函数，此函数会将需要做权限判断的路由写入数据库中，并自动生成一张数据库表（rbac_permission_auto）
   2.在角色表或者用户表中引入该表的关联表，例如：
+
     Role:
       type RbacRole struct {
         Id          *uint
@@ -65,6 +70,7 @@
     
 
   4.使用casbin中间件，放在您需要判断的路由前即可
+  
     Role
 			group.Middleware(qrbac.CasbinMiddlewareRole)
 
