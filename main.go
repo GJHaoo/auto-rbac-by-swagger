@@ -87,19 +87,32 @@ func TestApiPass(c *gin.Context) {
 // @security ApiKeyAuth
 // @router  /test/auth [POST]
 func TestApiAuth(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"value": "pass"})
+	c.JSON(http.StatusOK, gin.H{"value": "auth pass"})
 }
 
 func CasbinMiddleware(c *gin.Context) {
-	userId := c.PostForm("userId")
-	fmt.Println(string(userId))
+	var Body struct {
+		UserId int `json:"userId"`
+	}
+	err := c.Bind(&Body)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.Abort()
+		return
+	}
+	fmt.Println(Body)
+	if Body.UserId == 0 {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "userId is empty"})
+		c.Abort()
+		return
+	}
 	user := User{}
-	DB.Model(&User{}).Where("id = ?", userId).Preload("Roles").First(&user)
+	DB.Model(&User{}).Where("id = ?", Body.UserId).Preload("Roles").First(&user)
 	roleIds := []uint{}
 	for _, role := range user.Roles {
 		roleIds = append(roleIds, role.Id)
 	}
-	err := rbac.CasbinMiddlewareRole(*c.Request, roleIds)
+	err = rbac.CasbinMiddlewareRole(*c.Request, roleIds)
 	if err != nil {
 		c.String(http.StatusUnauthorized, err.Error())
 		c.Abort()
@@ -125,11 +138,14 @@ func setupRouter() *gin.Engine {
 func main() {
 	GormInit()
 	CasbinInit()
-	DataInit()
 	if len(os.Args) > 1 {
 		if os.Args[1] == "initApi" {
 			fmt.Println(os.Args[2])
 			rbac.RbacPermission.FetchUrlBySwagger(DB, os.Args[2])
+		}
+		if os.Args[1] == "initData" {
+			fmt.Println(os.Args[2])
+			DataInit()
 		}
 	} else {
 		r := setupRouter()
