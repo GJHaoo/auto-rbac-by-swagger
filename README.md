@@ -3,17 +3,17 @@
   git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git \
   go mod tidy \
 
-  # 如果修改了swag需要再次执行以下命令
-  swag init  \ 
+  如果修改了swag需要再次执行以下命令
+  swag init \
 
-  # 此条命令自动生成rbac_permission_auto表（所有权限路由表）
-  go run main.go initApi  docs/swagger.json  \ 
+  此条命令自动生成rbac_permission_auto表（所有权限路由表）
+  go run main.go initApi  docs/swagger.json \
   go run main.go initData \ 
-  go run main.go  \ 
+  go run main.go \ 
 
 ## 权限验证
 1.验证用户id为1的接口权限
-  命令行
+  命令行 \
     curl -X POST \
     http://localhost:8080/test/auth \
     -H 'content-type: application/json' \
@@ -70,7 +70,7 @@
     
 
   4.使用casbin中间件，放在您需要判断的路由前即可
-  
+
     Role
 			group.Middleware(qrbac.CasbinMiddlewareRole)
 
