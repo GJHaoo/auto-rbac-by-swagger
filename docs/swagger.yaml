@@ -1,0 +1,26 @@
+info:
+  contact: {}
+paths:
+  /test/auth:
+    post:
+      description: 测试验证接口
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: 测试验证接口
+      tags:
+      - test/auth
+  /test/pass:
+    post:
+      description: 测试通过接口
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: 测试通过接口
+      tags:
+      - test/pass
+swagger: "2.0"

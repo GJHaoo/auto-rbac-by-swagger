@@ -1,0 +1,44 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/test/auth": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "测试验证接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test/auth"
+                ],
+                "summary": "测试验证接口",
+                "responses": {}
+            }
+        },
+        "/test/pass": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "测试通过接口",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test/pass"
+                ],
+                "summary": "测试通过接口",
+                "responses": {}
+            }
+        }
+    }
+}
