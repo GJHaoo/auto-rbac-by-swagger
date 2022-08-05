@@ -1,15 +1,15 @@
 # 基于gin、casbin、swag自动生成鉴权路由的rbac demo
 ## 操作步骤
-  git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git \
-  go mod tidy \
+  git clone git@github.com:GJHaoo/auto-rbac-by-swagger.git 
+  go mod tidy 
 
   如果修改了swag需要再次执行以下命令
-  swag init \
+  swag init 
 
   此条命令自动生成rbac_permission_auto表（所有权限路由表）
-  go run main.go initApi  docs/swagger.json \
-  go run main.go initData \ 
-  go run main.go \ 
+  go run main.go initApi  docs/swagger.json 
+  go run main.go initData  
+  go run main.go  
 
 ## 权限验证
 1.验证用户id为1的接口权限
